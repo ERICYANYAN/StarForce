@@ -28,6 +28,8 @@ namespace StarForce
             // TODO: 这里可以播放一个 Splash 动画
             // ...
 
+            
+            // todo ： 这一块资源加载还不是很懂
             if (GameEntry.Base.EditorResourceMode)
             {
                 // 编辑器模式

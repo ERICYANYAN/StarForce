@@ -12,13 +12,17 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace StarForce
 {
+    /*
+     * 场景跳转流程
+     */
     public class ProcedureChangeScene : ProcedureBase
     {
         private const int MenuSceneId = 1;
 
-        private bool m_ChangeToMenu = false;
         private bool m_IsChangeSceneComplete = false;
         private int m_BackgroundMusicId = 0;
+        private int sceneId = 0;
+        
 
         public override bool UseNativeDialog
         {
@@ -33,6 +37,7 @@ namespace StarForce
             base.OnEnter(procedureOwner);
 
             m_IsChangeSceneComplete = false;
+            sceneId = 0;
 
             GameEntry.Event.Subscribe(LoadSceneSuccessEventArgs.EventId, OnLoadSceneSuccess);
             GameEntry.Event.Subscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
@@ -57,8 +62,9 @@ namespace StarForce
             // 还原游戏速度
             GameEntry.Base.ResetNormalGameSpeed();
 
-            int sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
-            m_ChangeToMenu = sceneId == MenuSceneId;
+            sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
+            
+            /*从场景表中找到，一切资源都从表走*/
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(sceneId);
             if (drScene == null)
@@ -90,14 +96,20 @@ namespace StarForce
                 return;
             }
 
-            if (m_ChangeToMenu)
+            switch (sceneId)
             {
-                ChangeState<ProcedureMenu>(procedureOwner);
+                case 1:
+                    ChangeState<ProcedureMenu>(procedureOwner);
+                    break;
+                case 2:
+                    ChangeState<ProcedureMain>(procedureOwner);
+                    break;
+                case 3:
+                    ChangeState<ProcedureJumpHit>(procedureOwner);
+                    break;
+                
             }
-            else
-            {
-                ChangeState<ProcedureMain>(procedureOwner);
-            }
+        
         }
 
         private void OnLoadSceneSuccess(object sender, GameEventArgs e)

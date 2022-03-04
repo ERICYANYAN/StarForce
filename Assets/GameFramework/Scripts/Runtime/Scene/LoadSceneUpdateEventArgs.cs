@@ -11,7 +11,7 @@ using GameFramework.Event;
 namespace UnityGameFramework.Runtime
 {
     /// <summary>
-    /// 加载场景更新事件。
+    /// 加载场景进度更新事件。
     /// </summary>
     public sealed class LoadSceneUpdateEventArgs : GameEventArgs
     {

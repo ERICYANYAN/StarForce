@@ -5,6 +5,7 @@
 // Feedback: mailto:ellan@gameframework.cn
 //------------------------------------------------------------
 
+using GameFramework.DataTable;
 using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -58,7 +59,7 @@ namespace StarForce
 
             if (m_StartGame)
             {
-                procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
+                procedureOwner.SetData<VarInt32>("NextSceneId", 3);
                 procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Survival);
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }

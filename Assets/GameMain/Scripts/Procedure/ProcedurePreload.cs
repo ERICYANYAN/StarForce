@@ -15,6 +15,10 @@ using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedure
 
 namespace StarForce
 {
+    /*
+     * 在编辑器模式下会走这个流程
+     * 主要是提前加载 配置，字典，表，然后跳转
+     */
     public class ProcedurePreload : ProcedureBase
     {
         public static readonly string[] DataTableNames = new string[]
@@ -83,6 +87,7 @@ namespace StarForce
             }
 
             procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
+            // 启动场景跳转
             ChangeState<ProcedureChangeScene>(procedureOwner);
         }
 

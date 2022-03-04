@@ -22,7 +22,6 @@ namespace GameFramework.Procedure
         protected internal override void OnInit(ProcedureOwner procedureOwner)
         {
             base.OnInit(procedureOwner);
-            
         }
 
         /// <summary>
